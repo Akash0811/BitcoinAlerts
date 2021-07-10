@@ -5,10 +5,10 @@ This is a simple web-scraper that downloads bitcoin price information for sendin
 
 - requests
 - BeautifulSoup
-- Python `__built__in` re
-- Python `__built__in` time
-- Python `__built__in` sys
-- Python `__built__in` smtplib
+- Python `__builtin__` re
+- Python `__builtin__` time
+- Python `__builtin__` sys
+- Python `__builtin__` smtplib
 
 
 ## Usage
