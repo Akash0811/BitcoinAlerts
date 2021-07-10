@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 10 23:26:08 2021
+Created on Sun Jul 11 02:04:22 2021
 
 @author: rufus
 """
 
-import requests,bs4,re,time,sys
+import requests,bs4,re,time,sys,smtplib
 
 # Create/open a csv file to store data
 # file = open('~/Documents/Python for Regular Use/BitcoinAlerts.csv','a')
@@ -46,6 +46,41 @@ print('The 24hr percent-change of Bitcoin price on {} at {} is {}%'.format(nowDa
 file = open('/home/rufus/Documents/Python for Regular Use/BitcoinAlerts.csv','a')
 file.write('{},{},{}\n'.format(nowDate , nowTime, num[0]))
 file.close()
-     
+
+# Sending email Alerts
+
+# Checking if password is provided
+if len(sys.argv) > 1:
+    password = ' '.join(sys.argv[1:])
+else:
+    raise Exception("Please provide password")
+
+# Preliminary Setup and check
+conn = smtplib.SMTP('smtp.gmail.com',587)
+ehlocheck = conn.ehlo()
+if ehlocheck[0] != 250:
+    raise Exception('Something Wrong with connecting to Gmail')     
+starttlscheck = conn.starttls()
+if starttlscheck[0] != 220:
+    raise Exception('Something Wrong with connecting to Gmail')
+
+# Sending and Receiving Email Addresses 
+send_address = 'aakashbiswal@gmail.com'
+receive_address = 'aakashbiswal@gmail.com'
+
+# Entering Password
+logincheck = conn.login( send_address , password )
+if logincheck[0] != 235:
+    raise Exception('Password Incorrect')
+    
+# Send Mail
+checksend = conn.sendmail( send_address, receive_address, 'Subject: Bitcon Alert\n\nDear Subscriber\nThe price of Bitcoin at {} is ${}.\n\nBest\nAkash'.format(nowTime,num[0]))
+if len(checksend) != 0:
+    raise Exception('Unable to send mail')
+    
+conn.quit()
+                                                
+
+    
 
 
