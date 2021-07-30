@@ -5,6 +5,8 @@ Created on Sun Jul 11 02:04:22 2021
 
 @author: rufus
 """
+from twilio.rest import Client
+
 
 import requests,bs4,re,time,sys,smtplib
 
@@ -51,7 +53,7 @@ file.close()
 
 # Checking if password is provided
 if len(sys.argv) > 1:
-    password = ' '.join(sys.argv[1:])
+    password = ' '.join(sys.argv[1:2])
 else:
     raise Exception("Please provide password")
 
@@ -64,7 +66,7 @@ starttlscheck = conn.starttls()
 if starttlscheck[0] != 220:
     raise Exception('Something Wrong with connecting to Gmail')
 
-# Sending and Receiving Email Addresses 
+# Sending and Receiving Email Addresses
 send_address = 'aakashbiswal@gmail.com'
 receive_address = 'aakashbiswal@gmail.com'
 
@@ -77,10 +79,18 @@ if logincheck[0] != 235:
 checksend = conn.sendmail( send_address, receive_address, 'Subject: Bitcon Alert\n\nDear Subscriber\nThe price of Bitcoin at {} is ${}.\n\nBest\nAkash'.format(nowTime,num[0]))
 if len(checksend) != 0:
     raise Exception('Unable to send mail')
-    
 conn.quit()
-                                                
 
-    
+# Find your Account SID and Auth Token at twilio.com/console
+# and set the environment variables. See http://twil.io/secure
+account_sid = sys.argv[2]
+auth_token = sys.argv[3]
+client = Client(account_sid, auth_token)
 
-
+message = client.messages \
+                .create(
+                     body="Dear Subscriber, the price of Bitcoin at {} is\
+ ${}".format(nowTime,num[0]),
+                     from_=sys.argv[4],
+                     to=sys.argv[5]
+                )
