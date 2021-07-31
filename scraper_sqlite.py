@@ -10,7 +10,7 @@ Created on Sat Jul 10 23:26:08 2021
 import requests, bs4, re, time, sqlite3
 
 # Creating Database
-conn = sqlite3.connect("bitcoin.db")
+conn = sqlite3.connect("/home/rufus/Documents/Python for Regular Use/Bitcoin/bitcoin.db")
 
 # Creating Table
 # conn.execute("DROP TABLE BITCOIN")

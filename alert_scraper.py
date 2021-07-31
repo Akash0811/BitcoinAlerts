@@ -74,7 +74,7 @@ receive_address = 'aakashbiswal@gmail.com'
 logincheck = conn.login( send_address , password )
 if logincheck[0] != 235:
     raise Exception('Password Incorrect')
-    
+
 # Send Mail
 checksend = conn.sendmail( send_address, receive_address, 'Subject: Bitcon Alert\n\nDear Subscriber\nThe price of Bitcoin at {} is ${}.\n\nBest\nAkash'.format(nowTime,num[0]))
 if len(checksend) != 0:

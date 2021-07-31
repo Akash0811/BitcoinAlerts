@@ -1,26 +1,29 @@
 class Investor:
-    def __init__(initial,bit_initial=0):
+    def __init__(self,initial,bit_initial=0):
         self.cash= initial
         self.bitcoin = bit_initial
 
-    def allin(price):
+    def allin(self,price):
         self.bitcoin += self.cash/price
         self.cash = 0
 
-    def allout(price):
+    def allout(self,price):
         self.cash += price*self.bitcoin
         self.bitcoin = 0
 
-    def buy(amt,price):
+    def buy(self,amt,price):
         if self.cash/bitcoin > amt:
             print("Insufficient funds")
         else:
             self.bitcoin += amt
             self.cash -= amt*price
 
-    def sell(amt,price):
+    def sell(self,amt,price):
         if self.bitcoin < amt:
             print("Insufficient funds")
         else:
             self.bitcoin -= amt
             self.cash += amt*price
+
+    def total_worth(self,price):
+        return self.cash+self.bitcoin*price
