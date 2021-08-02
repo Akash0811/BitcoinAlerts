@@ -29,12 +29,14 @@ person = list(conn.execute('''SELECT CASH,BITCOIN FROM INVESTORS LIMIT 1;'''))
 investor1 = Investor(person[0][0],person[0][1])
 if invpercChange < 360000 and priceDifference > 0 :
     investor1.allin(items[0][0])
+    print("All In")
     print("Total Worth on {} at {} is {:.2f}".format(datenow,timenow,investor1.total_worth(items[0][0])))
     conn.execute('''UPDATE INVESTORS SET CASH = {},BITCOIN =
                  {};'''.format(investor1.cash,investor1.bitcoin))
 
 elif abs(invpercChange) < 360000 and priceDifference < 0:
     investor1.allout(items[0][0])
+    print("All Out")
     print("Total Worth on {} at {} is {:.2f}".format(datenow,timenow,investor1.total_worth(items[0][0])))
     conn.execute('''UPDATE INVESTORS SET CASH = {},BITCOIN =
                  {};'''.format(investor1.cash,investor1.bitcoin))
