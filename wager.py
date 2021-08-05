@@ -23,10 +23,16 @@ items = list(conn.execute('''SELECT PRICE,TIMESTAMP FROM
 priceDifference = (items[0][0] - items[1][0])/(items[1][0])
 timeDifference = items[0][1] - items[1][1]
 
-invpercChange = timeDifference/priceDifference
+try:
+    invpercChange = timeDifference/priceDifference
+except Exception:
+    print("No Change in Price")
+    exit()
+
 
 person = list(conn.execute('''SELECT CASH,BITCOIN FROM INVESTORS LIMIT 1;'''))
 investor1 = Investor(person[0][0],person[0][1])
+
 if invpercChange < 360000 and priceDifference > 0 :
     investor1.allin(items[0][0])
     print("All In")
