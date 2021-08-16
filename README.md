@@ -14,9 +14,11 @@ This is a simple web-scraper that downloads bitcoin price information for sendin
 ## Usage
 
 - Prints the bitcoin **price** and 24 hr **percent** change on `stdout`
-- Configured to send **Email Alerts** via *hardcoded* email addresses
+- Configured to send **Email Alerts** and **SMS Alerts** 
 - **Password** to be given as an argument on *prompt*
 - Timestamp, Price Data Stored in **csv file** at *hardcoded* location
+- SQLite Database stores Price Data and Investor Information
+- Uses Strategy Behavioral Pattern
 
 
 ## Websites 
@@ -26,4 +28,4 @@ This is a simple web-scraper that downloads bitcoin price information for sendin
 
 ## Last Updated
 
-- July 11 2021
+- August 17 2021
